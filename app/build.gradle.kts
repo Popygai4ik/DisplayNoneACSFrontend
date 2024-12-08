@@ -22,6 +22,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildFeatures.viewBinding = true
 
     compileOptions {
@@ -35,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
     defaultLibrary()
 
     implementation(Dependencies.AndroidX.activity)

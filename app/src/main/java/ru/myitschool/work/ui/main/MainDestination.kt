@@ -1,0 +1,8 @@
+package ru.myitschool.work.ui.main
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object MainDestination {
+    const val route = "mainFragment"
+}

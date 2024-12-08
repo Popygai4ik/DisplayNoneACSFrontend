@@ -1,38 +1,39 @@
 package ru.myitschool.work.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavDestination
 import androidx.navigation.createGraph
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.fragment
 import dagger.hilt.android.AndroidEntryPoint
 import ru.myitschool.work.R
 import ru.myitschool.work.ui.login.LoginDestination
 import ru.myitschool.work.ui.login.LoginFragment
+import ru.myitschool.work.ui.main.MainDestination
 import ru.myitschool.work.ui.qr.scan.QrScanDestination
 import ru.myitschool.work.ui.qr.scan.QrScanFragment
 
 // НЕ ИЗМЕНЯЙТЕ НАЗВАНИЕ КЛАССА!
 @AndroidEntryPoint
 class RootActivity : AppCompatActivity() {
+//    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_root)
+//        sharedPreferences = this.getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
+//        val savedLogin = sharedPreferences.getString("LOGIN", "")
+//        val destination = if (!savedLogin.isNullOrEmpty()) MainDestination else LoginDestination
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
-
-        if (navHostFragment != null) {
-            val navController = navHostFragment.navController
-            navController.graph = navController.createGraph(
-                startDestination = LoginDestination
-            ) {
-                fragment<LoginFragment, LoginDestination>()
-                fragment<QrScanFragment, QrScanDestination>()
-            }
-        }
 
         onBackPressedDispatcher.addCallback(
             this,
