@@ -38,7 +38,9 @@ android {
 dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
     defaultLibrary()
+
 
     implementation(Dependencies.AndroidX.activity)
     implementation(Dependencies.AndroidX.fragment)
@@ -65,6 +67,8 @@ dependencies {
     val hilt = "2.51.1"
     implementation("com.google.dagger:hilt-android:$hilt")
     kapt("com.google.dagger:hilt-android-compiler:$hilt")
+
+
 }
 
 kapt {
