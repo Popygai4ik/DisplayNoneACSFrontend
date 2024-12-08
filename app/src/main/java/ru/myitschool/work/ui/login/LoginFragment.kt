@@ -4,6 +4,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -34,7 +36,26 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             Log.w("test", savedLogin)
         }
+        setupLoginButton()
         subscribe()
+    }
+    private fun setupLoginButton() {
+        binding.username.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding.error.visibility = View.GONE
+                val username = s.toString()
+                binding.login.isEnabled = isUsernameValid(username)
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+    private fun isUsernameValid(username: String): Boolean {
+        val alf = "^[a-zA-Z0-9]+$".toRegex()
+        return username.isNotEmpty() &&
+                username.length >= 3 &&
+                !username[0].isDigit() &&
+                alf.matches(username)
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,7 +64,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun subscribe() {
         viewModel.state.collectWhenStarted(this) { state ->
             binding.login.setOnClickListener { view ->
-
+                binding.error.visibility = View.GONE
                 if (true){ // если правильно то логин должен быть сохранён и при следующем открытии приложения экран авторизации не должен быть показан.
                     val username = binding.username.text.toString()
                     val editor = sharedPreferences.edit()
@@ -57,6 +78,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
     }
+
 
     override fun onDestroyView() {
         _binding = null
